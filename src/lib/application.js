@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:38
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 10:59:23
+ * @LastEditTime: 2021-02-05 14:23:49
  */
 const compose = require('../utils/compose')
 const response = require('./response')
@@ -13,6 +13,8 @@ const request = require('./request')
 const Emitter = require('events')
 const Stream = require('stream')
 const http = require('http')
+const onFinished = require('on-finished')
+
 export default class myKoa extends Emitter {
     constructor(options = {}) {
         super()
@@ -57,6 +59,8 @@ export default class myKoa extends Emitter {
     }
 
     handleRequest(ctx, fn) {
+        const onerror = (err) => ctx.onerror(err)
+        onFinished(res, onerror)
         //源码中对body检验更加详细，此处只做了简单校验
         finalHandle = () => {
             if (ctx.body === null) {
