@@ -1,12 +1,19 @@
-import Emmiter from 'events'
-import request from "./request";
-import response from "./response";
-import context from "./context";
-import http from "http";
-import compose from "../utils/compose";
-import Stream from 'stream'
-
-export default class myKoa extends Emmiter {
+/*
+ * @Description:
+ * @Version:
+ * @Autor: qinjunyi
+ * @Date: 2020-11-19 10:29:38
+ * @LastEditors: qinjunyi
+ * @LastEditTime: 2021-02-05 10:59:23
+ */
+const compose = require('../utils/compose')
+const response = require('./response')
+const context = require('./context')
+const request = require('./request')
+const Emitter = require('events')
+const Stream = require('stream')
+const http = require('http')
+export default class myKoa extends Emitter {
     constructor(options = {}) {
         super()
         this.middleWare = []
@@ -28,7 +35,7 @@ export default class myKoa extends Emmiter {
     callback() {
         // 订阅请求响应过程中抛出的异常
         this.on('error', this.onError)
-        //合成中间件
+        // 合成中间件
         const fn = compose(this.middleWare)
         handleRequest = (req, res) => {
             const ctx = this.createContext(req, res)
@@ -54,19 +61,18 @@ export default class myKoa extends Emmiter {
         finalHandle = () => {
             if (ctx.body === null) {
                 return ctx.res.end('Not Found')
-            } else if (typeof ctx.body === 'string' || typeof ctx.body === 'object') {
+            } else if (
+                typeof ctx.body === 'string' ||
+                typeof ctx.body === 'object'
+            ) {
                 return ctx.res.end(ctx.body)
             } else if (ctx.body instanceof Stream) {
-                return body.pipe(res);
+                return body.pipe(res)
             } else {
                 return ctx.res.end(JSON.stringify(ctx.body))
             }
         }
-        return fn(ctx)
-            .then(finalHandle)
-            .catch((err) => {
-                this.onError(Err)
-            })
+        return fn(ctx).then(finalHandle).catch(this.onError)
     }
 
     onError(err) {
