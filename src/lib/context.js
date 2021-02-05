@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:35
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 11:08:26
+ * @LastEditTime: 2021-02-05 11:29:25
  */
 const delegate = require('../utils/delegates')
 
@@ -20,6 +20,22 @@ const proto = (module.exports = {
             res: '<original node res>',
             socket: '<original node socket>',
         }
+    },
+    onerror(err) {
+        if (null == err) return
+
+        // delegate
+        this.app.emit('error', err, this)
+        // 中间件报错捕获
+        const { res } = this
+
+        if ('ENOENT' == err.code) {
+            err.status = 404
+        } else {
+            err.status = 500
+        }
+        this.status = err.status
+        res.end(err.message || 'Internal error')
     },
 })
 

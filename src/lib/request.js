@@ -4,22 +4,22 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:37
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 10:54:48
+ * @LastEditTime: 2021-02-05 11:19:51
  */
 module.exports = {
     get header() {
-        return this.request.headers
+        return this.req.headers
     },
 
     set header(val) {
-        this.request.headers = val
+        this.req.headers = val
     },
 
     get url() {
-        return this.request.url
+        return this.req.url
     },
 
     set url(val) {
-        this.request.url = val
+        this.req.url = val
     },
 }

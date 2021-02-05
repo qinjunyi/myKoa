@@ -4,15 +4,15 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:36
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 10:55:27
+ * @LastEditTime: 2021-02-05 10:55:09
  */
 module.exports = {
     get status() {
-        return this.response.statusCode
+        return this.res.statusCode
     },
 
     set status(code) {
-        this.response.statusCode = code
+        this.res.statusCode = code
     },
 
     get body() {
