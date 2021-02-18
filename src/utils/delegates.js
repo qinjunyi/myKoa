@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2021-02-04 11:04:22
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 11:08:56
+ * @LastEditTime: 2021-02-18 15:17:41
  */
 function Delegates(proto, target) {
     if (!(this instanceof Delegates)) return new Delegates(proto, target)
@@ -56,6 +56,7 @@ Delegates.prototype.setter = function (key) {
     var proto = this.proto
     var target = this.target
     this.setters.push(key)
+    //当属性的值被赋值时，所绑定的函数就会被调用，在真正拥有该属性的对象中给该属性进行赋值。
     proto.__defineSetter__(key, function (val) {
         return (this[target][key] = val)
     })
@@ -66,6 +67,7 @@ Delegates.prototype.getter = function (key) {
     var proto = this.proto
     var target = this.target
     this.setters.push(key)
+    //当属性的值被读取时，所绑定的函数就会被调用，将target上指定的属性添加到proto对象上。
     proto.__defineGetter__(key, function () {
         return this[target][key]
     })
@@ -75,6 +77,7 @@ Delegates.prototype.getter = function (key) {
 Delegates.prototype.access = function (key) {
     return this.getter(key).setter(key)
 }
+//类似于jquery的val()取值和val(xxx)设置值有相同的味道，有则get没有则set。
 Delegates.prototype.fluents = function (key) {
     var proto = this.proto
     var target = this.target

@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:38
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 14:23:49
+ * @LastEditTime: 2021-02-18 17:42:12
  */
 const compose = require('../utils/compose')
 const response = require('./response')
@@ -38,14 +38,16 @@ export default class myKoa extends Emitter {
         // 订阅请求响应过程中抛出的异常
         this.on('error', this.onError)
         // 合成中间件
-        const fn = compose(this.middleWare)
+        const fnMiddleware = compose(this.middleWare)
         handleRequest = (req, res) => {
             const ctx = this.createContext(req, res)
-            return this.handleRequest(ctx, fn)
+            return this.handleRequest(ctx, fnMiddleware)
         }
         return handleRequest
     }
-
+    // 针对每个请求，都要创建ctx对象
+    // 每个请求的ctx request response
+    // ctx代理原生的req res就是在这里代理的
     createContext(req, res) {
         const context = Object.create(this.context)
         context.request = Object.create(this.request)
@@ -58,7 +60,7 @@ export default class myKoa extends Emitter {
         return context
     }
 
-    handleRequest(ctx, fn) {
+    handleRequest(ctx, fnMiddleware) {
         const onerror = (err) => ctx.onerror(err)
         onFinished(res, onerror)
         //源码中对body检验更加详细，此处只做了简单校验
@@ -76,7 +78,7 @@ export default class myKoa extends Emitter {
                 return ctx.res.end(JSON.stringify(ctx.body))
             }
         }
-        return fn(ctx).then(finalHandle).catch(this.onError)
+        return fnMiddleware(ctx).then(finalHandle).catch(this.onError)
     }
 
     onError(err) {

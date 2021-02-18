@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:35
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-05 11:29:25
+ * @LastEditTime: 2021-02-18 15:36:46
  */
 const delegate = require('../utils/delegates')
 
@@ -24,9 +24,9 @@ const proto = (module.exports = {
     onerror(err) {
         if (null == err) return
 
-        // delegate
+        // delegate 捕获异常
         this.app.emit('error', err, this)
-        // 中间件报错捕获
+
         const { res } = this
 
         if ('ENOENT' == err.code) {
