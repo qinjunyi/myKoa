@@ -4,8 +4,8 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:41
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-19 10:46:02
+ * @LastEditTime: 2021-02-19 11:13:36
  */
-const myKoa = require('./lib/application')
+const myKoa = require('./src/lib/application')
 
 module.exports = myKoa
