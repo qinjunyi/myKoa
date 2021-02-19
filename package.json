@@ -12,7 +12,5 @@
     ],
     "author": "junyi",
     "license": "ISC",
-    "dependencies": {
-        "koa": "^2.13.0"
-    }
+    "dependencies": {}
 }
