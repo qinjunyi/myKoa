@@ -12,5 +12,7 @@
     ],
     "author": "junyi",
     "license": "ISC",
-    "dependencies": {}
+    "dependencies": {
+        "on-finished": "^2.3.0"
+    }
 }

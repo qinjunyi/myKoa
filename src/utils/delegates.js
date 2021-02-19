@@ -4,7 +4,12 @@
  * @Autor: qinjunyi
  * @Date: 2021-02-04 11:04:22
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-18 15:17:41
+ * @LastEditTime: 2021-02-19 10:52:11
+ */
+/**
+ * @description 将某个对象的子对象属性代理至该根对象上
+ * @param {Object} proto
+ * @param {String} target 子对象key值
  */
 function Delegates(proto, target) {
     if (!(this instanceof Delegates)) return new Delegates(proto, target)

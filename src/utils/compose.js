@@ -4,9 +4,14 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:40
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-18 17:43:12
+ * @LastEditTime: 2021-02-19 10:48:57
  */
-export default function (middleWares) {
+/**
+ * @description 组合中间件，洋葱模型实践
+ * @param {Array} middleWares
+ * @return {Function}
+ */
+function compose(middleWares) {
     if (!Array.isArray(middleWares)) {
         throw new Error('入参必须为一个数组')
     }
@@ -40,3 +45,4 @@ export default function (middleWares) {
         return dispatch(0)
     }
 }
+module.exports = compose

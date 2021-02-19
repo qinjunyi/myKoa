@@ -4,7 +4,7 @@
  * @Autor: qinjunyi
  * @Date: 2020-11-19 10:29:38
  * @LastEditors: qinjunyi
- * @LastEditTime: 2021-02-18 17:42:12
+ * @LastEditTime: 2021-02-19 10:47:01
  */
 const compose = require('../utils/compose')
 const response = require('./response')
@@ -15,7 +15,7 @@ const Stream = require('stream')
 const http = require('http')
 const onFinished = require('on-finished')
 
-export default class myKoa extends Emitter {
+module.exports = class Application extends Emitter {
     constructor(options = {}) {
         super()
         this.middleWare = []
