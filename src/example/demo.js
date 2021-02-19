@@ -9,22 +9,22 @@
 const delegates = require('../utils/delegates')
 
 const origin = {
-    a: 1,
-    b: 2,
-    c: {
-        d: 3,
-        e: 4,
-        fn: function () {
-            console.log(this.a)
-        },
-    },
+  a: 1,
+  b: 2,
+  c: {
+    d: 3,
+    e: 4,
+    fn: function () {
+      console.log(this.a)
+    }
+  }
 }
 const extra = {
-    f: 5,
-    g: 6,
-    fn1: function () {
-        console.log(this.a)
-    },
+  f: 5,
+  g: 6,
+  fn1: function () {
+    console.log(this.a)
+  }
 }
 delegates(origin, 'c').method('fn')
 console.log(origin.fn)

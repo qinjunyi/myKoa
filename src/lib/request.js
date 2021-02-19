@@ -7,19 +7,19 @@
  * @LastEditTime: 2021-02-05 11:19:51
  */
 module.exports = {
-    get header() {
-        return this.req.headers
-    },
+  get header() {
+    return this.req.headers
+  },
 
-    set header(val) {
-        this.req.headers = val
-    },
+  set header(val) {
+    this.req.headers = val
+  },
 
-    get url() {
-        return this.req.url
-    },
+  get url() {
+    return this.req.url
+  },
 
-    set url(val) {
-        this.req.url = val
-    },
+  set url(val) {
+    this.req.url = val
+  }
 }
