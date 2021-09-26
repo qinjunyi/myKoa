@@ -19,6 +19,7 @@ function compose(middleWares) {
     throw new Error('数组元素都要是函数')
   }
   return function (context, next) {
+    let index = -1
     function dispatch(i) {
       // 一个中间件里多次调用next，抛异常
       if (i <= index) return Promise.reject('next() 只能调用一次')
