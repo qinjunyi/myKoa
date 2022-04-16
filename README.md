@@ -123,7 +123,7 @@ function myCompose(middleWares) {
             if (i <= index) return Promise.reject('next() 只能调用一次')
             index = i
             // fn为当前中间件
-            const fn = middleWares[i]
+            let fn = middleWares[i]
             if (i == middlewares.length) fn = next
             if (!fn) return Promise.resolve() // 没有中间件，直接返回成功
             /**
